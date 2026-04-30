@@ -1,0 +1,199 @@
+STEP 1 — Authentication
+Register User -->
+Login User -->
+Get Current Profile -->
+Update Profile -->
+Change Password -->
+forgot password -->
+Logout (optional with blacklist)
+Delete User (admin only) --> 
+
+
+STEP 2 — Vendor Management
+(Admin controls vendors)
+Create Vendor
+Get All Vendors
+Get Single Vendor
+Update Vendor
+Delete Vendor
+
+
+STEP 3 — Product Management
+
+(Vendor manages products)
+
+Workflow
+
+Each vendor owns products.
+
+Each product has:
+
+name
+SKU
+category
+price
+quantity
+stock status
+APIs
+Create Product
+Get All Products
+Get Single Product
+Update Product
+Delete Product
+Search Products
+Filter Products
+Pagination
+
+
+STEP 5 — Order Management
+
+(Staff creates customer orders)
+
+Workflow
+
+Create order →
+
+add multiple products →
+
+auto calculate total →
+
+reduce stock →
+
+update status
+
+APIs
+Create Order
+Get All Orders
+Get Single Order
+Update Order Status
+Cancel Order
+Delete Order
+Vendor-specific Orders
+
+This is your strongest backend module.
+
+
+
+STEP 6 — Inventory Management
+Workflow
+
+Track stock levels.
+
+Prevent:
+
+negative stock
+overselling
+APIs
+View Inventory
+Low Stock Alerts
+Restock Product
+Stock Adjustment
+
+Very interview-worthy.
+
+STEP 7 — Dashboard / Reports
+
+(Admin + Vendor)
+
+APIs
+Monthly Sales
+Vendor Revenue
+Top Selling Products
+Low Stock Products
+Total Orders
+Revenue Summary
+
+This teaches aggregation queries.
+
+Very strong for resume.
+
+STEP 8 — Notifications (Optional Advanced)
+APIs / Background Tasks
+Low stock alert
+Invoice email
+Order confirmation
+
+Good advanced feature.
+
+Recommended API Development Order
+
+Follow this exact order:
+
+1. Auth
+
+↓
+
+2. Vendor
+
+↓
+
+3. Product
+
+↓
+
+4. Order
+
+↓
+
+5. Inventory
+
+↓
+
+6. Dashboard
+
+This is the best progression.
+
+Folder Structure (Industry Style)
+app/
+│
+├── auth/
+├── users/
+├── vendors/
+├── products/
+├── orders/
+├── inventory/
+├── dashboard/
+│
+├── models/
+├── schemas/
+├── services/
+├── repositories/
+├── dependencies/
+├── core/
+│
+└── main.py
+
+Very professional.
+
+My Strong Advice
+
+Do NOT build:
+
+vendor → product → order
+
+randomly.
+
+Build:
+
+Full flow first
+
+Then:
+
+APIs in order
+
+This saves huge pain later.
+
+What You Should Start Next
+
+Since Auth + RBAC is done:
+
+Start with:
+Vendor Module
+
+because:
+
+Vendor → Product → Order
+
+This dependency chain matters.
+
+That is the correct next step.

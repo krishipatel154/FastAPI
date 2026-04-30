@@ -1,0 +1,93 @@
+-- benifites of fastapi
+1. faster and also support microservices
+2. fastapi build on top of the starlet beacuse of that it support async, await
+3. easy to learn
+
+-- fastapi setup
+python -m venv venv
+pip insatll fastapi[standard]
+
+-- create server using fastapi
+from fastapi import FastAPI
+app = FastAPI()
+
+-- run server
+fastapi dev main.py
+uvicorn main:app --reload
+
+-- create first api endpoint
+@app.get("/")
+def home():
+    return "hello"
+
+-- path params : when we have fixed dynamic values, all are mendatory
+@app.get("/product/{id}")
+def product(id: int):
+    product = None
+    for i in products:
+        if i.get("id") == id:
+            return i
+    
+    return {
+        "error": "product not found"
+    }
+
+-- query params : when we don't know fixed numbers of params, it's not mendatory to send query params
+useCase1:
+@app.get("/greet")
+def greet_user(name: str):
+    return {
+        "greet": f"Hello, {name}"
+    }
+
+useCase2:
+@app.get("/greet")
+def greet_user(request:Request):
+    query_params = dict(request.query_params)
+    return {
+        "greet": f"Hello, {query_params.get('name')}"
+    }
+
+-- HTTP methods (GET, POST, PUT, PATCH, DELETE)
+1. POST
+@app.post("/create-product")
+def create_product(product: Product):
+    product = product.model_dump()
+    products.append(product)
+    return {
+        "payload":products,
+        "message":"Product created successfully!"
+    }
+
+2. PUT
+@app.put("/update-product/{id}")
+def update_product(product: Product, id: int):
+    for index, oneProduct in enumerate(products):
+        if oneProduct.get("id") == id:
+            products[index] = product
+            return {
+                "payload":product,
+                "message":"Product updated successfully!"
+            }
+
+    return {
+        "message":"Product not found"
+    }
+
+3. DELETE
+@app.delete("/delete-product/{id}")
+def delete_product(id:int):
+    for index, oneProduct in enumerate(products):
+        if oneProduct.get("id") == id:
+            deleted_product = products.pop(index)
+            return {
+                "payload":deleted_product,
+                "message":"Product deleted successfully!"
+            }
+
+    return {
+        "message":"Product not found"
+    }
+
+
+-- floder structure
