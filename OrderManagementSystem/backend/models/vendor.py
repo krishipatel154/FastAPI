@@ -3,6 +3,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from zoneinfo import ZoneInfo
+from sqlalchemy import Enum
 
 def indian_time():
     return datetime.now(ZoneInfo("Asia/Kolkata"))
@@ -12,10 +13,6 @@ class VendorModel(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False, unique=True)
-    # firstname = Column(String(100), nullable=False)
-    # lastname = Column(String(100), nullable=True)
-    # email = Column(String(255), unique=True, nullable=False, index=True)
-    # password = Column(String, nullable=False)
     business_name = Column(String(100), nullable=False)
     business_type = Column(String(100), nullable=False)
     gst_number = Column(String, nullable=True)
@@ -26,10 +23,10 @@ class VendorModel(Base):
     business_license_path = Column(String, nullable=False)
 
     vendor_status = Column(
-        String(50),
+        Enum("pending", "approved", "rejected", name="vendor_status"),
         default="pending",
         nullable=False
-    )  # pending / approved / rejected
+    )
 
     created_at = Column(
         DateTime(timezone=True),
@@ -45,3 +42,4 @@ class VendorModel(Base):
     )
 
     user = relationship("UserModel")
+    products = relationship("ProductModel", back_populates="vendor", cascade="all, delete")

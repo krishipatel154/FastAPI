@@ -4,7 +4,12 @@ from models.auth import UserModel
 from utils.db import get_db
 from jwt.exceptions import InvalidTokenError
 from utils.settings import settings
+from datetime import datetime
+from zoneinfo import ZoneInfo
 import jwt
+
+def indian_time():
+    return datetime.now(ZoneInfo("Asia/Kolkata"))
 
 def is_authenticated(request:Request, db:Session = Depends(get_db)):
     try:
